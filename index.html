@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>sleepIDE</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+    <script>
+var path = require('path');
+var fs = require('fs');
+
+
+function deepSearch(route){
+var obj = {
+      name: path.basename(route),
+      dirs:[],
+      docs:[]
+    };
+
+
+function printRoute (route,obj) {
+    var root = fs.readdirSync(route);
+    root.forEach(file => {
+      if(file == 'node_modules'){
+        continue;
+      }
+      var state = fs.statSync(path.join(route,file));
+      if(state.isFile()){
+        obj.docs.push(file);
+      }else{
+        var subObj = {};
+        subObj.name = file;
+        subObj.dirs = [];
+        subObj.docs = [];
+        obj.dirs.push(subObj);
+      }
+    });
+
+    obj.dirs.forEach(dir => {
+      printRoute(path.join(route,dir.name),dir);
+    });
+  };
+
+  printRoute('/Users/sleepGod/frontEnd/homework/homework1',obj);
+  return obj;
+};
+var obj = deepSearch('/Users/sleepGod/frontEnd/homework/homework1');
+
+document.write(JSON.stringify(obj));
+
+    </script>
+  </body>
+
+  <script>
+    require('./renderer.js')
+  </script>
+</html>

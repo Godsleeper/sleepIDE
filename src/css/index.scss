@@ -1,0 +1,190 @@
+@import "variable";
+@import "mixins";
+@import "reset";
+
+
+
+/*导航栏*/
+.top_bar_wrapper{
+  z-index: 999;
+  background-color: #fff;
+  position:fixed;
+  width:100%;
+  top:0;
+  left: 0;
+  overflow: hidden;
+  height: .51rem;
+  .top_bar{
+    height:100%;
+    overflow-x:auto;
+    overflow-y: hidden;
+    white-space:nowrap;
+    line-height: .51rem;
+    .top_bar_item{
+      display: inline-block;
+      margin-left: .2rem;
+      .topbar_active{
+        border-bottom:2px solid $topbar_act;
+        display:inline-block;
+        height:.41rem;
+      }
+    }
+  }
+}
+
+
+/*分类栏*/
+.nav_bar{
+  margin-top:.41rem;
+  width:100%;
+  padding:.05rem .06rem;
+  background-color: #fff;
+  height:1.7rem;
+  .nav_bar_item{
+    float:left;
+    width:25%;
+    height:.7rem;
+    .nav_bar_item_img{
+      width:100%;
+      height:.53rem;
+      img{
+        display:block;
+        height:100%;
+        margin: 0 auto;
+      }
+    }
+    .nav_more{
+      transform:scale(.5);
+    }
+    .nav_bar_item_name{
+      text-align: center;
+      font-size: .12rem;
+      color:$nav_fontColor;
+    }
+  }
+}
+
+/*列表栏*/
+.list_content{
+  margin-top:10px;
+  overflow:auto;
+  background-color: #fff;
+  .list_content_item{
+    float:left;
+    height:100%;
+    width:50%;
+    padding-right: .015rem;
+  }
+  img{
+    width:1.86rem;
+    height:1.86rem;
+  }
+  .list_content_title{
+    color:$good_title;
+    padding:.1rem .09rem 0 .1rem;
+    width: 100%;
+    overflow: hidden;
+    text-align: justify;
+    font-size: .12rem;
+    height:.44rem;
+    line-height:1.5;
+  }
+  .list_info_bar{
+    overflow: hidden;
+    padding:.02rem .1rem 0;
+    line-height: .31rem;
+    height:.31rem;
+    .list_item_price{
+      float: left;
+      color:$price_color;
+      font-size:.16rem;
+      font-weight: 400;
+      .list_money{
+        font-size: .1rem;
+      }
+    }
+    .list_item_num{
+      float:right;
+      color:$good_info;
+      font-size: .1rem;
+    }
+  }
+}
+
+/*底部栏*/
+.bottom_bar_wrapper{
+  border-top: 1px solid $bg_color;
+  background-color: #fff;
+  position: fixed;
+  transform: translate3d(0, 0, 0);
+  z-index: 999;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height:49px;
+  .bottom_bar_item{
+    font-size: .1rem;
+    color:$bottom_bar;
+    margin-top: 6px;
+    display:inline-block;
+    height:100%;
+    width:20%;
+    text-align: center;
+    .bottom_icon{
+      margin:0 auto;
+      background-image: url("http://cdn.yangkeduo.com/assets/img/tabbar_v4_3x-9f1235221d.png");
+      background-size:auto 23px;
+      width:23px;
+      height:23px;
+    }
+    .bottom_icon_0{
+      background-position: -23px 0;
+    }
+    .bottom_icon_1{
+      background-position: -46px 0;
+    }
+    .bottom_icon_2{
+      background-position: -92px 0;
+    }
+    .bottom_icon_3{
+      background-position: -138px 0;
+    }
+    .bottom_icon_4{
+      background-position: -184px 0;
+    }
+  }
+}
+
+/*回到顶部*/
+.to_top{
+  transition:all 1s;
+  position:fixed;
+  bottom:-50px;
+  right:20px;
+  height:45px;
+  width:45px;
+  background:rgba(0,0,0,.1);
+  border:2px solid #9c9c9c;
+  border-radius: 45px;
+  z-index: 999;
+  .to_top_wrapper{
+    position:absolute;
+    margin: auto;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    text-align: center;
+    .to_top_logo{
+      height:20px;
+      ling-height:20px;
+      color:#333333;
+      font-size: 20px;
+    }
+    .to_top_text{
+      color: #666666;
+      font-size: 12px;
+    }
+  }
+}
+
