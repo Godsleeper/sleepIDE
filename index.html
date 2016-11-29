@@ -2,60 +2,31 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>sleepIDE</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-    <script>
-var path = require('path');
-var fs = require('fs');
-
-
-function deepSearch(route){
-var obj = {
-      name: path.basename(route),
-      dirs:[],
-      docs:[]
-    };
-
-
-function printRoute (route,obj) {
-    var root = fs.readdirSync(route);
-    root.forEach(file => {
-      if(file == 'node_modules'){
-        continue;
-      }
-      var state = fs.statSync(path.join(route,file));
-      if(state.isFile()){
-        obj.docs.push(file);
-      }else{
-        var subObj = {};
-        subObj.name = file;
-        subObj.dirs = [];
-        subObj.docs = [];
-        obj.dirs.push(subObj);
-      }
-    });
-
-    obj.dirs.forEach(dir => {
-      printRoute(path.join(route,dir.name),dir);
-    });
-  };
-
-  printRoute('/Users/sleepGod/frontEnd/homework/homework1',obj);
-  return obj;
-};
-var obj = deepSearch('/Users/sleepGod/frontEnd/homework/homework1');
-
-document.write(JSON.stringify(obj));
-
-    </script>
+    <div class="nav_bar">
+      <ul class="nav_bar_left">
+        <li class="nav_bar_item">File</li>
+        <li class="nav_bar_item">Edit</li>
+        <li class="nav_bar_item">Window</li>
+        <li class="nav_bar_item">Help</li>
+      </ul>
+      <ul class="nav_bar_right">
+        <li class="nav_bar_item theme1"></li>
+        <li class="nav_bar_item theme2"></li>
+        <li class="nav_bar_item theme3"></li>
+      </ul>
+    </div>
+    <div class="search_bar">
+        <input type="text" class="search_bar_input" />
+        <span class="search_bar_text">（ 请输入要搜索的文件路径名，支持模糊匹配 ）</span>
+        <button class="search_bar_btn">搜索</button>
+    </div>
+    <div class="file_tree_bar"></div>
+    <div class="code_edit_bar"></div>
+    <div class="foot_status_bar"></div>
+    <script src="./src/dist/indexpack.js"></script>
   </body>
-
-  <script>
-    require('./renderer.js')
-  </script>
 </html>

@@ -42,11 +42,11 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit(); 
   }
-})
+});
 
 //给点击图标设置回调，开启一个新窗口
 app.on('activate', function () {
   if (mainWindow === null) {
     createWindow(); 
   }
-})
+});
