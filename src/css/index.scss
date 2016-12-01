@@ -5,20 +5,56 @@
   background-color: $nav_bar;
   height:25px;
   border-bottom: 1px $nav_bottom_line solid;
+  width:100%;
   .nav_bar_left {
     height:25px;
     float:left;
     .nav_bar_item {
-      transition: all .6s;
       float: left;
       line-height: 25px;
-      text-align: center;
-      padding: 0 10px;
       position:relative;
-      &:hover {
-        padding: 0 100px;
+      perspective: 500px;
+      &:hover .nav_bar_text{
+        width:200px;
         color: #fff;
         background-color: $nav_hover;
+      }
+      &:hover .nav_bar_wrapper{
+        transition:all 1.2s;
+        transform:rotateX(360deg);
+        opacity: 1;
+      }
+      .nav_bar_text{
+        text-align: center;
+        transition: all .6s;
+        width:120px;
+      }
+      .nav_bar_wrapper{
+
+        transform-style:preserve-3d;
+        transform-origin:0 0 0;
+        transform:rotateX(-90deg);
+        font-size: 12px;
+        border-radius: 5px;
+        position:absolute;
+        top:24px;
+        left: 0;
+        opacity: 0;
+        width:200px;
+        background-color: $nav_bar;
+        border:1px solid #646464;
+        .nav_content_item{
+          &:first-child {
+            border-bottom: 1px solid #646464;
+          }
+          &:last-child  {
+            border-top: 1px solid #646464
+          }
+          &:hover{
+            background-color: #2f65ca;
+          }
+          text-indent: 2em;
+        }
       }
     }
   }
@@ -50,6 +86,8 @@
   height:40px;
   background-color: $nav_bar;
   border-bottom: 1px $nav_bottom_line solid;
+  overflow: hidden;
+
   .search_bar_input{
     margin-left: 20px;
     width:200px;
@@ -75,7 +113,7 @@
     color:$font;
     background-color: #45494a;
     border-radius: 2px;
-    border:1px solid #646464;
+    border:1px solid $nav_bottom_line;
     width:65px;
     height:20px;
     margin-top:10px;
@@ -84,11 +122,24 @@
       background-color: #2f65ca;
     }
   }
+  .search_select_wrapper{
+    float: right;
+  }
+  .search_bar_theme{
+    margin-right:30px;
+    margin-top: 10px;
+    float:right;
+    outline:none;
+    background-color: $nav_bar;
+    border: 1px solid $nav_bottom_line;
+    font-size:14px;
+  }
 }
 
 .file_tree_bar{
+  z-index: -1;
   transition:all .6s;
-  width:160px;
+  width:200px;
   position:absolute;
   top:65px;
   bottom:25px;
@@ -113,12 +164,18 @@
 }
 
 .code_edit_bar{
+  z-index: -1;
   position:absolute;
   top:65px;
   bottom:25px;
-  left:160px;
+  left:200px;
   right:0;
   background-color:$code_bar;
+  overflow:scroll;
+  .CodeMirror{
+    height:100%;
+    width:100%;
+  }
 }
 
 .foot_status_bar{

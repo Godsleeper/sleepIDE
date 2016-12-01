@@ -1,3 +1,4 @@
 {
-  "avalon": "js/lib/avalon.shim.js"
+  "avalon": "js/lib/avalon.shim.js",
+  "jquery": "js/lib/jquery.js"
 }

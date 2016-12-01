@@ -1,32 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>sleepIDE</title>
-  </head>
-  <body>
-    <div class="nav_bar">
-      <ul class="nav_bar_left">
-        <li class="nav_bar_item">File</li>
-        <li class="nav_bar_item">Edit</li>
-        <li class="nav_bar_item">Window</li>
-        <li class="nav_bar_item">Help</li>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>汤唯的IDE</title>
+  <link href="src/js/lib/codemirror/lib/codemirror.css" rel="stylesheet"/>
+  <link href="src/js/lib/codemirror/theme/monokai.css" rel="stylesheet" />
+  <link href="src/js/lib/codemirror/theme/3024-night.css" rel="stylesheet" />
+  <link href="src/js/lib/codemirror/theme/dracula.css" rel="stylesheet" />
+  <link href="src/js/lib/codemirror/theme/bespin.css" rel="stylesheet" />
+  <link href="src/js/lib/codemirror/theme/eclipse.css" rel="stylesheet" />
+  <link rel="stylesheet" href="src/js/lib/default/style.min.css"/>
+  <script>
+      window.nodeRequire = require;
+      delete window.require;
+      delete window.exports;
+      delete window.module;
+  </script>
+  <script src="src/js/lib/codemirror/lib/codemirror.js"></script>
+  <script src="src/js/lib/jquery.js"></script>
+  <script src="src/js/lib/jstree.js"></script>
+  <script src="./src/dist/indexpack.js"></script>
+  <script src = "src/js/lib/codemirror/mode/javascript/javascript.js"></script>
+  <script src = "src/js/lib/codemirror/mode/clike/clike.js"></script>
+  <script src = "src/js/lib/codemirror/mode/cmake/cmake.js"></script>
+</head>
+<body ms-controller="code">
+<div class="nav_bar">
+  <ul class="nav_bar_left">
+    <li class="nav_bar_item" ms-repeat="navItem">
+      <div class="nav_bar_text">{{el.name}}</div>
+      <ul class="nav_bar_wrapper">
+        <li class="nav_content_item" ms-repeat-content="el.content">{{content}}</li>
       </ul>
-      <ul class="nav_bar_right">
-        <li class="nav_bar_item theme1"></li>
-        <li class="nav_bar_item theme2"></li>
-        <li class="nav_bar_item theme3"></li>
-      </ul>
-    </div>
-    <div class="search_bar">
-        <input type="text" class="search_bar_input" />
-        <span class="search_bar_text">（ 请输入要搜索的文件路径名，支持模糊匹配 ）</span>
-        <button class="search_bar_btn">搜索</button>
-    </div>
-    <div class="file_tree_bar"></div>
-    <div class="code_edit_bar"></div>
-    <div class="foot_status_bar"></div>
-    <script src="./src/dist/indexpack.js"></script>
-  </body>
+    </li>
+  </ul>
+  <ul class="nav_bar_right">
+    <li class="nav_bar_item theme1"></li>
+    <li class="nav_bar_item theme2"></li>
+    <li class="nav_bar_item theme3"></li>
+  </ul>
+</div>
+<div class="search_bar">
+  <input type="text" class="search_bar_input" />
+  <span class="search_bar_text">（ 请输入要搜索的文件路径名，支持模糊匹配 ）</span>
+  <button class="search_bar_btn">搜索</button>
+  <div class="search_select_wrapper">
+    <select class="search_bar_theme" ms-change='modelChange($event,"model","theme")'>
+      <option class="search_theme_item" ms-repeat="model" ms-attr-value="el">{{el}}</option>
+    </select>
+    <select class="search_bar_theme" ms-change='modelChange($event,"lModel","mode")'>
+      <option class="search_theme_item" ms-repeat="language" ms-attr-value="lModel[$index]">{{el}}</option>
+    </select>
+  </div>
+</div>
+<div class="file_tree_bar" id="file_tree_bar"></div>
+<div class="code_edit_bar">
+  <textarea id="codemirror1"></textarea>
+</div>
+<div class="foot_status_bar"></div>
+<script src="src/dist/doc.js"></script>
+</body>
 </html>
