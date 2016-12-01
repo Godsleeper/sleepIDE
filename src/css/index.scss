@@ -30,7 +30,6 @@
         width:120px;
       }
       .nav_bar_wrapper{
-
         transform-style:preserve-3d;
         transform-origin:0 0 0;
         transform:rotateX(-90deg);
@@ -186,4 +185,76 @@
   left:0;
   bottom:0;
   width:100%;
+}
+
+.input_bar{
+  transition:all 1s;
+  transform-style:preserve-3d;
+
+  transform-origin:0 0 0;
+  transform:rotateX(90deg);
+  opacity:0;
+  z-index: 999;
+  height:100px;
+  width:600px;
+  background-color: $code_bar;
+  border-radius: 5px;
+  position:fixed;
+  left:50%;
+  margin:100px 0 0 -300px;
+  border:5px solid $nav_bar;
+  font-size: 16px;
+  .input_bar_title{
+    width:100%;
+    text-align: center;
+    height:30px;
+    line-height: 30px;
+    border-bottom:2px solid $nav_bar ;
+  }
+  input{
+    transition:all 1s;
+    margin-top:15px;
+    font-size: 16px;
+    height:30px;
+    width:250px;
+    outline: none;
+    border: 1px solid #646464;
+    background-color:$nav_bar;
+    padding: 0 20px;
+    margin-left: 50px;
+    &:focus{
+      border-radius: 15px;
+      width:500px;
+    }
+  }
+  button{
+    position:absolute;
+    transition:all .3s;
+    margin-top: 60px;
+    width:65px;
+    height:30px;
+    background-color: $nav_bar;
+    right:30px;
+    bottom:-30px;
+    opacity: .3;
+    &:hover{
+      opacity:1;
+    }
+  }
+  .input_bar_select{
+    position:absolute;
+    left:20px;
+    top:5px;
+    height:20px;
+    width:65px;
+    font-size: 12px;
+    outline:none;
+    background-color: $nav_bar;
+    border: 1px solid $nav_bottom_line;
+  }
+}
+
+.input_bar_active{
+    transform:rotateX(360deg);
+    opacity:1;
 }

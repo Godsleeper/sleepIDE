@@ -30,8 +30,8 @@
   <ul class="nav_bar_left">
     <li class="nav_bar_item" ms-repeat="navItem">
       <div class="nav_bar_text">{{el.name}}</div>
-      <ul class="nav_bar_wrapper">
-        <li class="nav_content_item" ms-repeat-content="el.content">{{content}}</li>
+      <ul class="nav_bar_wrapper" ms-click = 'clickHandler($event)'>
+        <li class="nav_content_item" ms-repeat-content="el.content" ms-data-clickValue="content">{{content}}</li>
       </ul>
     </li>
   </ul>
@@ -59,6 +59,17 @@
   <textarea id="codemirror1"></textarea>
 </div>
 <div class="foot_status_bar"></div>
+
+<div class="input_bar">
+  <div class="input_bar_title">选择父目录后输入文件名</div>
+    <input type="text" class="input_bar_input" placeholder="input your information here" />
+    <select class="input_bar_select">
+      <option class="input_select_item" value="0">文件</option>
+      <option class="input_select_item" value="1">文件夹</option>
+    </select>
+    <button class="input_bar_confirm">确定</button>
+</div>
+
 <script src="src/dist/doc.js"></script>
 </body>
 </html>
