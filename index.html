@@ -36,14 +36,12 @@
     </li>
   </ul>
   <ul class="nav_bar_right">
-    <li class="nav_bar_item theme1"></li>
-    <li class="nav_bar_item theme2"></li>
-    <li class="nav_bar_item theme3"></li>
+    <li class="nav_bar_item theme1" ms-click="setTheme(0)">1</li>
+    <li class="nav_bar_item theme2" ms-click="setTheme(1)">2</li>
   </ul>
 </div>
 <div class="search_bar">
   <input type="text" class="search_bar_input" />
-  <span class="search_bar_text">（ 请输入要搜索的文件路径名，支持模糊匹配 ）</span>
   <button class="search_bar_btn">搜索</button>
   <div class="search_select_wrapper">
     <select class="search_bar_theme" ms-change='modelChange($event,"model","theme")'>
@@ -56,10 +54,9 @@
 </div>
 <div class="file_tree_bar" id="file_tree_bar"></div>
 <div class="code_edit_bar">
+  <div class="code_edit_max" ms-click="setsideBar" >{{codeVisible?'隐藏':'出现'}}</div>
   <textarea id="codemirror1"></textarea>
 </div>
-<div class="foot_status_bar"></div>
-
 <div class="input_bar">
   <div class="input_bar_title">选择父目录后输入文件名</div>
     <input type="text" class="input_bar_input" placeholder="input your information here" />
@@ -69,7 +66,10 @@
     </select>
     <button class="input_bar_confirm">确定</button>
 </div>
-
+<div class="foot_status_bar">
+  <span class="foot_status_title">当前文件夹：</span>{{currentFolder}}&nbsp;&nbsp;&nbsp;
+  <span class="foot_status_title">当前文件：</span>{{currentDoc}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
 <script src="src/dist/doc.js"></script>
 </body>
 </html>

@@ -1,6 +1,10 @@
 @import "variable";
 @import "reset";
 
+.theme2{
+  background-color: #e6e6e6!important;
+  color:#000;
+}
 .nav_bar{
   background-color: $nav_bar;
   height:25px;
@@ -28,6 +32,9 @@
         text-align: center;
         transition: all .6s;
         width:120px;
+      }
+      .nav_bar_wrapper_theme2{
+        background-color: #e6e6e6!important;
       }
       .nav_bar_wrapper{
         transform-style:preserve-3d;
@@ -62,21 +69,29 @@
     margin-right: 20px;
     height:25px;
     .nav_bar_item{
+      cursor:pointer;
+      transition: all 1s;
       float:left;
       margin-top:6px;
       margin-right:10px;
+      font-size: 12px;
       width:12px;
       height:12px;
       border-radius:12px;
+      text-align: center;
+      line-height: 12px;
+      &:hover{
+        border-radius: 0;
+        transform: scale(1.5);
+      }
     }
     .theme1{
-      background-color: #fc615c;
+      color:#fff;
+      background-color: #000;
     }
     .theme2{
-      background-color: #fdc141;
-    }
-    .theme3{
-      background-color: #34c849;
+      color:#000;
+      background-color: #fff;
     }
   }
 }
@@ -145,24 +160,10 @@
   left:0;
   background-color:$nav_bar;
   overflow: scroll;
-  &:after{
-    content:'<';
-    text-align: center;
-    line-height: 60px;
-    border:1px solid #646464;
-    border-right:none;
-    position:absolute;
-    width:10px;
-    height:60px;
-    right:0px;
-    top:50%;
-    margin-top:-30px;
-    background-color: $code_bar;
-    color:#646464;
-  }
 }
 
 .code_edit_bar{
+  transition:all 1s;
   z-index: -1;
   position:absolute;
   top:65px;
@@ -175,7 +176,30 @@
     height:100%;
     width:100%;
   }
+  .code_edit_max{
+    cursor: pointer;
+    border: 4px $nav_bar solid;
+    border-radius: 5px;
+    position:absolute;
+    width:20px;
+    height:40px;
+    bottom:0;
+    left:-4px;
+    z-index: 999;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 12px;
+    padding:4px 0;
+  }
+  .code_edit_max_theme2{
+    border: 4px #e6e6e6 solid;
+    color: #000;
+  }
 }
+.code_edit_max{
+  left:0px;
+}
+
 
 .foot_status_bar{
   position:absolute;
@@ -185,12 +209,18 @@
   left:0;
   bottom:0;
   width:100%;
+  line-height: 25px;
+  font-size: 12px;
+  text-align: right;
+  .foot_status_title{
+    font-weight: bold;
+    color:#fff;
+  }
 }
 
 .input_bar{
   transition:all 1s;
   transform-style:preserve-3d;
-
   transform-origin:0 0 0;
   transform:rotateX(90deg);
   opacity:0;

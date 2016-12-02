@@ -1,7 +1,8 @@
 const fs = window.nodeRequire('fs');
 const path = window.nodeRequire('path');
-
-
+const remote = window.nodeRequire('electron').remote;
+const dialog = remote.dialog;
+const ipc = window.nodeRequire('electron').ipcRenderer;
 
 avalon.ready(function () {
     var editor = CodeMirror.fromTextArea(document.getElementById('codemirror1'), {
@@ -26,11 +27,11 @@ avalon.ready(function () {
             },
             {
                 name: 'Window·窗口',
-                content: ['Theme1 · 主题1', 'Theme2 · 主题2', 'Theme3 · 主题3', 'SideBar · 边栏']
+                content: ['Theme1 · 主题1', 'Theme2 · 主题2', 'SideBar · 边栏', 'CodeLine · 行数']
             },
             {
                 name: 'Settings · 设置',
-                content: ['Theme1 · 主题1', 'Theme1 · 主题2', 'Theme1 · 主题3', 'SideBar · 边栏']
+                content: ['Theme1 · 主题1', 'Theme2 · 主题2', 'Theme3 · 主题3', 'SideBar · 边栏']
             },
             {
                 name: 'Help · 帮助',
@@ -39,11 +40,13 @@ avalon.ready(function () {
         ],
         model: ['Style · 高亮','3024-night', 'monokai', 'bespin', 'eclipse', 'dracula'],
         language: ['Language · 语言', 'C语言', 'C++', 'Java', 'Javascript'],
-        lModel: ['Language · 语言', 'cmake', 'cmake', 'javascript', 'javascript'],
+        lModel: ['Language · 语言', 'cmake', 'cmake', 'clike', 'javascript'],
         tree: {},
         currentFolder:'',
         currentDoc:'',
-
+        codeVisible:true,
+        codeLine:true,
+        codeStyle:true,
         modelChange: function ($event, type, option) {
             var style = $event.target.value;
             if (style == code[type][0]) {
@@ -54,7 +57,18 @@ avalon.ready(function () {
         getTree: function (route) {
             code.tree = code.deepSearch(route);
         },
-        deepSearch: function(route){
+        setsideBar: function() {
+            var codeBar = $('.code_edit_bar');
+            if (code.codeVisible) {
+                codeBar.addClass('code_edit_max');
+                code.codeVisible = false;
+            }
+            else {
+                codeBar.removeClass('code_edit_max');
+                code.codeVisible = true;
+            }
+        },
+        deepSearch: function (route) {
             function creater(parent,name,route){
                 var obj = {};
                 obj.parent = parent;
@@ -196,9 +210,48 @@ avalon.ready(function () {
                 case 'Save' :
                     code.saveFile(code.currentDoc);
                     break;
-
+                case 'File' :
+                    code.openFile();
+                    break;
+                case 'Project' :
+                    code.openDir();
+                    break;
+                case 'Exit' :
+                    code.exitWindow();
+                    break;
+                case 'SideBar' :
+                    code.setsideBar();
+                    break;
+                case 'CodeLine':
+                    code.setcodeLine();
+                    break;
+                case 'Search' :
+                    alert('请在搜索框输入搜索的数据');
+                    break;
+                case 'Theme1':
+                    code.setTheme(0);
+                    break;
+                case 'Theme2':
+                    code.setTheme(1);
+                    break;
+                case 'Help' :
+                case 'Reference' :
+                    window.open('https://github.com/electron/electron/blob/master/docs-translations/zh-CN/README.md');
+                    break;
+                case 'Github' :
+                    window.open('https://github.com/Godsleeper/sleepIDE/tree/test');
+                    break;
                 default:
                     break;
+            }
+        },
+        setcodeLine: function () {
+            if(code.codeLine){
+                editor.setOption('lineNumbers',false);
+                code.codeLine = false;
+            }else{
+                editor.setOption('lineNumbers',true);
+                code.codeLine = true;
             }
         },
         saveFile: function(route){
@@ -239,6 +292,66 @@ avalon.ready(function () {
                 $('.input_bar').removeClass('input_bar_active');
             });
         },
+        openFile: function () {
+            dialog.showOpenDialog([{
+                title: 'Open File',
+                defaultPath: code.currentDoc!==''?code.currentFolder:'/Users/sleepGod/',
+                properties: 'openFile'
+            }],function (filename) {
+                if(filename == undefined){
+                    return;
+                }
+                var filename = filename[0];
+                code.currentDoc = filename;
+                var data = fs.readFileSync(filename,'utf8').toString();
+                editor.setValue(data);
+            })
+        },
+        openDir: function () {
+            dialog.showOpenDialog([{
+                title: 'Open Directory',
+                defaultPath: code.currentFolder!==''?code.currentFolder:'/Users/sleepGod/',
+                properties: 'openDirectory'
+            }],function (dirName) {
+                if(dirName == undefined){
+                    return;
+                }
+                // var dir = dirName[0];
+                // code.currentFolder = dir;
+                // code.getTree(dir);
+                // code.buildTree();
+                console.log(dirName);
+            })
+        },
+        exitWindow: function () {
+            ipc.send('exitWindow');
+        },
+        setTheme: function (style) {
+            var sideBar = $('.file_tree_bar');
+            var navBar = $('.nav_bar');
+            var searchBar = $('.search_bar');
+            var footBar = $('.foot_status_bar');
+            var navbarContent = $('.nav_bar_wrapper');
+            var codeBtn = $('.code_edit_max');
+            if(style == 0){
+                sideBar.removeClass('theme2');
+                navBar.removeClass('theme2');
+                searchBar.removeClass('theme2');
+                footBar.removeClass('theme2');
+                navbarContent.removeClass('nav_bar_wrapper_theme2');
+                codeBtn.removeClass('code_edit_max_theme2');
+                editor.setOption('theme','monokai');
+            }else{
+                sideBar.addClass('theme2');
+                navBar.addClass('theme2');
+                searchBar.addClass('theme2');
+                footBar.addClass('theme2');
+                navbarContent.addClass('nav_bar_wrapper_theme2');
+                codeBtn.addClass('code_edit_max_theme2');
+                editor.setOption('theme','eclipse');
+            }
+        },
+
     });
 
     var main = function () {

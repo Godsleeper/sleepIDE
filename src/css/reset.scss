@@ -5,14 +5,18 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Microsoft Sans Serif';
-  color: $font;
+
 }
 
 li{
   list-style: none;
 }
 
+select,button{
+  color: $font;
+}
 body{
+  color: $font;
   font-size: 14px;
   width: 100%;
   height: 100%;
