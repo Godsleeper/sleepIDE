@@ -216,6 +216,9 @@
     font-weight: bold;
     color:#fff;
   }
+  .foot_status_title_theme2{
+    color:#000!important;
+  }
 }
 
 .input_bar{
@@ -285,6 +288,6 @@
 }
 
 .input_bar_active{
-    transform:rotateX(360deg);
-    opacity:1;
+  transform:rotateX(360deg);
+  opacity:1;
 }
