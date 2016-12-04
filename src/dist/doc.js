@@ -22,16 +22,8 @@ avalon.ready(function () {
                 content: ['New · 新建', 'Folder · 新建文件夹', 'Save · 保存', 'File · 打开文件', 'Project · 打开目录', 'Exit · 退出程序']
             },
             {
-                name: 'Edit · 编辑',
-                content: ['All · 全选', 'Copy · 复制', 'Cut · 剪切', 'Paste · 粘贴', 'Search · 搜索']
-            },
-            {
                 name: 'Window·窗口',
                 content: ['Theme1 · 主题1', 'Theme2 · 主题2', 'SideBar · 边栏', 'CodeLine · 行数']
-            },
-            {
-                name: 'Settings · 设置',
-                content: ['Theme1 · 主题1', 'Theme2 · 主题2', 'Theme3 · 主题3', 'SideBar · 边栏']
             },
             {
                 name: 'Help · 帮助',
@@ -293,11 +285,11 @@ avalon.ready(function () {
             });
         },
         openFile: function () {
-            dialog.showOpenDialog([{
+            var fileDialog = new dialog.showOpenDialog({
                 title: 'Open File',
-                defaultPath: code.currentDoc!==''?code.currentFolder:'/Users/sleepGod/',
-                properties: 'openFile'
-            }],function (filename) {
+                defaultPath: '/Users/sleepGod/',
+                properties: ['openFile']
+            },function (filename) {
                 if(filename == undefined){
                     return;
                 }
@@ -308,18 +300,17 @@ avalon.ready(function () {
             })
         },
         openDir: function () {
-            dialog.showOpenDialog([{
+            var dirDialog = dialog.showOpenDialog({
                 title: 'Open Directory',
-                defaultPath: code.currentFolder!==''?code.currentFolder:'/Users/sleepGod/',
-                properties: 'openDirectory'
-            }],function (dirName) {
+                properties: ['openDirectory']
+            },function (dirName) {
                 if(dirName == undefined){
                     return;
                 }
-                // var dir = dirName[0];
-                // code.currentFolder = dir;
-                // code.getTree(dir);
-                // code.buildTree();
+                var dir = dirName[0];
+                code.currentFolder = dir;
+                code.getTree(dir);
+                code.buildTree();
                 console.log(dirName);
             })
         },
@@ -333,6 +324,7 @@ avalon.ready(function () {
             var footBar = $('.foot_status_bar');
             var navbarContent = $('.nav_bar_wrapper');
             var codeBtn = $('.code_edit_max');
+            var footText = $('.foot_status_title');
             if(style == 0){
                 sideBar.removeClass('theme2');
                 navBar.removeClass('theme2');
@@ -340,6 +332,7 @@ avalon.ready(function () {
                 footBar.removeClass('theme2');
                 navbarContent.removeClass('nav_bar_wrapper_theme2');
                 codeBtn.removeClass('code_edit_max_theme2');
+                footText.removeClass('foot_status_title_theme2');
                 editor.setOption('theme','monokai');
             }else{
                 sideBar.addClass('theme2');
@@ -348,6 +341,7 @@ avalon.ready(function () {
                 footBar.addClass('theme2');
                 navbarContent.addClass('nav_bar_wrapper_theme2');
                 codeBtn.addClass('code_edit_max_theme2');
+                footText.addClass('foot_status_title_theme2');
                 editor.setOption('theme','eclipse');
             }
         },
@@ -355,8 +349,6 @@ avalon.ready(function () {
     });
 
     var main = function () {
-        code.getTree('/Users/sleepGod/frontEnd/homework/homework1/src/');
-        code.buildTree();
         code.eventPool();
     };
     main();
